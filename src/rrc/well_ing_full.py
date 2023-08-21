@@ -2,7 +2,7 @@ import os
 import time
 from dbfread import DBF
 from elasticsearch_config import es
-from config import *
+
 from index_constants import wells
 
 dbf_directory = os.getenv("DBF_DIRECTORY")

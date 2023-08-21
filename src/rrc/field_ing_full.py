@@ -1,7 +1,7 @@
 import os
 import time
 from elasticsearch_config import es
-from config import *
+
 from index_constants import fields
 
 txt_file_path = os.getenv("TXT_FILE_PATH")
