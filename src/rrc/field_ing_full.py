@@ -1,6 +1,7 @@
 import os
 import time
 from elasticsearch_config import es
+from elasticsearch import helpers
 
 from index_constants import fields
 
@@ -37,8 +38,8 @@ def ingestion_fields():
             record = split_line(line, field_lengths, field_names)
             data.append(record)
 
-    for item in data:
-        es.index(index=index_name, document=item)
+    bulk_data = [{"_index": index_name, "_source": item} for item in data]
+    helpers.bulk(es, bulk_data)
 
     return len(data)
 

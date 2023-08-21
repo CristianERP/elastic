@@ -7,7 +7,6 @@ import src.eia.prices_ing_incremental
 import src.rrc.well_ing_full
 import src.rrc.field_ing_full
 import src.rrc.general_ing_dsv
-import src.hifld.well_coordinates
 from index_constants import (
     production,
     prices,
@@ -92,8 +91,6 @@ def main():
         src.rrc.general_ing_dsv.main(index)
     elif index == og_operator_data:
         src.rrc.general_ing_dsv.main(index)
-    elif index == well_xy:
-        src.hifld.well_coordinates
 
 
 if __name__ == "__main__":

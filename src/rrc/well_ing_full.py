@@ -2,6 +2,7 @@ import os
 import time
 from dbfread import DBF
 from elasticsearch_config import es
+from elasticsearch import helpers
 
 from index_constants import wells
 
@@ -9,17 +10,16 @@ dbf_directory = os.getenv("DBF_DIRECTORY")
 index_name = wells
 
 
-def load_dbf_to_elasticsearch(dbf_file):
-    records = []
-    count_records = 0
+def ingestion_dbf(dbf_file):
+    data_list = []
 
     for record in DBF(dbf_file, encoding="utf-8"):
-        records.append(record)
+        data_list.append(record)
 
-    for idx, record in enumerate(records):
-        es.index(index=index_name, id=idx, document=record)
-        count_records = count_records + 1
-    return count_records
+    bulk_data = [{"_index": index_name, "_source": item} for item in data_list]
+    helpers.bulk(es, bulk_data)
+
+    return len(data_list)
 
 
 def main():
@@ -28,7 +28,7 @@ def main():
         if filename.endswith(".dbf"):
             dbf_file_path = os.path.join(dbf_directory, filename)
             start_time = time.time()
-            records = load_dbf_to_elasticsearch(dbf_file_path)
+            records = ingestion_dbf(dbf_file_path)
             end_time = time.time()
             all_time = end_time - start_time
             print(

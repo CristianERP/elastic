@@ -10,7 +10,7 @@ index_dsv_mapping = {
     "county": "GP_COUNTY_DATA_TABLE.dsv",
     "district": "GP_DISTRICT_DATA_TABLE.dsv",
     "og_county": "OG_COUNTY_CYCLE_DATA_TABLE.dsv",
-    "og_county_lease": "OG_COUNTY_LEASE_CYCLE_DATA_TABLE.dsv",
+    # "og_county_lease": "OG_COUNTY_LEASE_CYCLE_DATA_TABLE.dsv",
     "og_district": "OG_DISTRICT_CYCLE_DATA_TABLE.dsv",
     "og_field": "OG_FIELD_CYCLE_DATA_TABLE.dsv",
     "og_field_data": "OG_FIELD_DW_DATA_TABLE.dsv",
@@ -72,7 +72,7 @@ def ingestion_dsv(index_name, delimiter="}"):
 def main(index_name):
     start_time = time.time()
     filename = index_dsv_mapping.get(index_name)
-    # records = ingestion_dsv_bulk(index_name)
+
     if filename:
         dsv_file_path = os.path.join(dsv_directory, filename)
         file_size = os.path.getsize(dsv_file_path)
@@ -88,5 +88,5 @@ def main(index_name):
     end_time = time.time()
     all_time = end_time - start_time
     print(
-        f"Ingesta full index prices, Tiempo: {all_time} seg., Cantidad registros : {records}"
+        f"Ingesta {index_name} prices, Tiempo: {all_time} seg., Cantidad registros : {records}"
     )

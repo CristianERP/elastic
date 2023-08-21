@@ -30,7 +30,6 @@ def index_data_in_elasticsearch(data_list):
 
 
 def main():
-    print("inicio")
     current_year = datetime.now().year
     list_year = []
 
