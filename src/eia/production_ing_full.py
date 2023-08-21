@@ -4,6 +4,7 @@ import requests
 from datetime import datetime
 
 from elasticsearch_config import es
+from elasticsearch import helpers
 
 from ..helpers.filter_data import index_production
 from index_constants import production
@@ -24,11 +25,12 @@ def get_data_from_api(start_date, end_date):
 
 def index_data_in_elasticsearch(data_list):
     filtered_data = index_production(data_list)
-    for item in filtered_data:
-        es.index(index=index_name, document=item)
+    bulk_data = [{"_index": index_name, "_source": item} for item in filtered_data]
+    helpers.bulk(es, bulk_data)
 
 
 def main():
+    print("inicio")
     current_year = datetime.now().year
     list_year = []
 
