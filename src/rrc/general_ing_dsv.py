@@ -3,7 +3,7 @@ import time
 from elasticsearch_config import es
 from elasticsearch import helpers
 
-SMALL_FILE_SIZE_THRESHOLD = 500 * 1024
+SMALL_FILE_SIZE_THRESHOLD = 5 * 1024
 dsv_directory = os.getenv("DSV_DIRECTORY")
 
 index_dsv_mapping = {
@@ -70,21 +70,20 @@ def ingestion_dsv(index_name, delimiter="}"):
 
 
 def main(index_name):
-    print("inicio")
     start_time = time.time()
     filename = index_dsv_mapping.get(index_name)
-    records = ingestion_dsv(index_name)
-    # if filename:
-    #     dsv_file_path = os.path.join(dsv_directory, filename)
-    #     file_size = os.path.getsize(dsv_file_path)
+    # records = ingestion_dsv_bulk(index_name)
+    if filename:
+        dsv_file_path = os.path.join(dsv_directory, filename)
+        file_size = os.path.getsize(dsv_file_path)
 
-    #     if file_size <= SMALL_FILE_SIZE_THRESHOLD:
-    #         records = ingestion_dsv(index_name)
-    #     else:
-    #         records = ingestion_dsv_bulk(index_name)
-    # else:
-    #     print(f"No se encontró el archivo asociado al índice: {index_name}")
-    #     records = 0
+        if file_size <= SMALL_FILE_SIZE_THRESHOLD:
+            records = ingestion_dsv(index_name)
+        else:
+            records = ingestion_dsv_bulk(index_name)
+    else:
+        print(f"No se encontró el archivo asociado al índice: {index_name}")
+        records = 0
 
     end_time = time.time()
     all_time = end_time - start_time
