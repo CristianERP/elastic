@@ -19,6 +19,10 @@ index_dsv_mapping = {
 }
 
 
+def create_index(index_name, index_settings):
+    es.indices.create(index=index_name, body=index_settings, ignore=400)
+
+
 def ingestion_dsv_bulk(index_name, delimiter="}", batch_size=1000):
     filename = index_dsv_mapping[index_name]
     dsv_file_path = os.path.join(dsv_directory, filename)
@@ -69,8 +73,9 @@ def ingestion_dsv(index_name, delimiter="}"):
         return 0
 
 
-def main(index_name):
+def main(index_name, index_settings):
     start_time = time.time()
+    create_index(index_name, index_settings)
     filename = index_dsv_mapping.get(index_name)
 
     if filename:

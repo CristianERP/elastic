@@ -23,6 +23,16 @@ from index_constants import (
     og_operator_data,
     well_xy,
 )
+from index_props import (
+    county_sett,
+    district_sett,
+    og_county_sett,
+    og_district_sett,
+    og_field_sett,
+    og_field_data_sett,
+    og_operator_sett,
+    og_operator_data_sett,
+)
 
 
 def main():
@@ -74,23 +84,23 @@ def main():
     elif index == fields:
         src.rrc.field_ing_full.main()
     elif index == county:
-        src.rrc.general_ing_dsv.main(index)
+        src.rrc.general_ing_dsv.main(index, county_sett)
     elif index == district:
-        src.rrc.general_ing_dsv.main(index)
+        src.rrc.general_ing_dsv.main(index, district_sett)
     elif index == og_county:
-        src.rrc.general_ing_dsv.main(index)
+        src.rrc.general_ing_dsv.main(index, og_county_sett)
     elif index == og_county_lease:
         src.rrc.general_ing_dsv.main(index)
     elif index == og_district:
-        src.rrc.general_ing_dsv.main(index)
+        src.rrc.general_ing_dsv.main(index, og_district_sett)
     elif index == og_field:
-        src.rrc.general_ing_dsv.main(index)
+        src.rrc.general_ing_dsv.main(index, og_field_sett)
     elif index == og_field_data:
-        src.rrc.general_ing_dsv.main(index)
+        src.rrc.general_ing_dsv.main(index, og_field_data_sett)
     elif index == og_operator:
-        src.rrc.general_ing_dsv.main(index)
+        src.rrc.general_ing_dsv.main(index, og_operator_sett)
     elif index == og_operator_data:
-        src.rrc.general_ing_dsv.main(index)
+        src.rrc.general_ing_dsv.main(index, og_operator_data_sett)
 
 
 if __name__ == "__main__":
