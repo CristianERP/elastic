@@ -20,8 +20,10 @@ def index_production(data_list):
 def index_prices(data_list):
     filtered_data = []
     for item in data_list:
+        period = item.get("period")
+        formatted_period = period.replace("-", "")
         filtered_item = {
-            "period": item.get("period"),
+            "period": formatted_period,
             "product": item.get("product"),
             "product-name": item.get("product-name"),
             "value": item.get("value"),

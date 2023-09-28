@@ -1,3 +1,28 @@
+price_sett = {
+    "mappings": {
+        "properties": {
+            "period": {
+                "type": "date",
+                "format": "yyyyMM",
+                "fields": {"keyword": {"type": "keyword", "ignore_above": 256}},
+            },
+            "product": {
+                "type": "text",
+                "fields": {"keyword": {"type": "keyword", "ignore_above": 256}},
+            },
+            "product-name": {
+                "type": "text",
+                "fields": {"keyword": {"type": "keyword", "ignore_above": 256}},
+            },
+            "units": {
+                "type": "text",
+                "fields": {"keyword": {"type": "keyword", "ignore_above": 256}},
+            },
+            "value": {"type": "float"},
+        }
+    }
+}
+
 county_sett = {
     "mappings": {
         "properties": {
